@@ -8,7 +8,6 @@
 // n/2 = 3.5
 
 // majority element must appear 4 or more times
-const array = [2, 2, 1, 2, 3, 2, 2, 1, 1, 1, 1, 1, 1];
 
 function majorityElement(array) {
   const map = {};
@@ -30,4 +29,29 @@ function majorityElement(array) {
   return maxElement > array.length / 2 > maxElement ? maxElement : null;
 }
 
-console.log(majorityElement(array));
+// console.log(majorityElement(array));
+function mooresAlgorithm(array) {
+  let majority = array[0];
+  let count = 1;
+  for (let i = 1; i < array.length; i++) {
+    const currentElement = array[i];
+    if (majority !== currentElement) {
+      count -= 1;
+      if (count <= 0) {
+        majority = currentElement;
+        count = 1;
+      }
+    } else {
+      count++;
+    }
+  }
+  let freq = 0;
+  for (let num of array) {
+    if (num === majority) {
+      freq++;
+    }
+  }
+  return freq >= array.length / 2 ? majority : null;
+}
+const array = [5, 5, 5, 5, 2, 3];
+console.log(mooresAlgorithm(array));
